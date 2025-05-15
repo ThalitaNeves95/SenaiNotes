@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using SenaiNotes.Models;
 
-namespace SenaiNotes.Models;
+namespace APISenaiNotes.Models;
 
 public partial class Usuario
 {
