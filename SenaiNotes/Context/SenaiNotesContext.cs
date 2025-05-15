@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using APISenaiNotes.Models;
 using Microsoft.EntityFrameworkCore;
 using SenaiNotes.Models;
 
