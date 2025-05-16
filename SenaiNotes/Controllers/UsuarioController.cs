@@ -52,7 +52,7 @@ namespace APISenaiNotes.Controllers
         {
             
             return Ok("Listar todos os usuários");
-    }
+        }
         
         [HttpPut("atualizar/{id}")]
         public IActionResult Atualizar(int id, [FromBody] string usuario)
@@ -65,7 +65,7 @@ namespace APISenaiNotes.Controllers
         {
             
             return Ok($"Usuário com id {id} deletado com sucesso");
-}
+        }
 
     }
 }
