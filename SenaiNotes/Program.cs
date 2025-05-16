@@ -4,14 +4,11 @@ using SenaiNotes.Context;
 
 using APISenaiNotes.Interfaces;
 using APISenaiNotes.Repositories;
-using Microsoft.OpenApi.Models;
-using SenaiNotes.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
-
 
 builder.Services.AddControllers();
 
@@ -24,7 +21,6 @@ builder.Services.AddSwaggerGen(c =>
 
     });
 });
-
 
 builder.Services.AddDbContext<SenaiNotesContext>();
 builder.Services.AddTransient<INotaRepository, NotaRepository>();
@@ -46,9 +42,6 @@ builder.Services.AddCors(
 
 var app = builder.Build();
 
-
-
-
 app.UseSwagger();
 
 app.UseSwaggerUI(c =>
@@ -58,6 +51,5 @@ app.UseSwaggerUI(c =>
 });
 
 app.MapControllers();
-app.UseSwaggerUI();
 
 app.Run();
