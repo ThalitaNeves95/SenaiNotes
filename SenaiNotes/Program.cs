@@ -1,10 +1,8 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using SenaiNotes.Context;
 
 using APISenaiNotes.Interfaces;
 using APISenaiNotes.Repositories;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -13,7 +11,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
-
 
 builder.Services.AddControllers();
 
@@ -26,7 +23,6 @@ builder.Services.AddSwaggerGen(c =>
 
     });
 });
-
 
 builder.Services.AddDbContext<SenaiNotesContext>();
 builder.Services.AddTransient<INotaRepository, NotaRepository>();
@@ -62,9 +58,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 var app = builder.Build();
 
-
-
-
 app.UseSwagger();
 
 app.UseSwaggerUI(c =>
@@ -74,7 +67,7 @@ app.UseSwaggerUI(c =>
 });
 
 app.MapControllers();
-app.UseSwaggerUI();
 
 
+''
 app.Run();
