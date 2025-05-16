@@ -41,8 +41,8 @@ namespace APISenaiNotes.Repositories
 
             public void Cadastrar(Nota nota)
             {
-
                 _context.Notas.Add(nota);
+                
                 // 2 - Salvo a Alteração
                 _context.SaveChanges();
             }
@@ -69,5 +69,29 @@ namespace APISenaiNotes.Repositories
             {
                 return _context.Notas.ToList();
             }
+
+        public async Task ArquivarNota(int id, bool? arquivada) 
+        {
+            var arquivar = await _context.Notas.FindAsync(id);
+            if (arquivar != null)
+            {
+                arquivar.Arquivada = arquivada ?? true; 
+                await _context.SaveChangesAsync(); 
+            }
+            
+        }
+
+        //public void DesarquivarNota(int id, bool? arquivado)
+        //{
+        //    using (var context = new SenaiNotesContext())
+        //    {
+        //        var registro = context.Notas.Find(id);
+        //        if (registro != null)
+        //        {
+        //            registro.Arquivada = false;
+        //            context.SaveChanges();
+        //        }
+        //    }
+        //}
     }
 }

@@ -17,5 +17,7 @@ namespace APISenaiNotes.Interfaces
 
         
         void Deletar(int id);
+
+        Task ArquivarNota(int id, bool? arquivada);
     }
 }
