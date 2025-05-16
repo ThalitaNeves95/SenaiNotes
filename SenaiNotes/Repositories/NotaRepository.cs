@@ -72,10 +72,11 @@ namespace APISenaiNotes.Repositories
 
         public async Task ArquivarNota(int id, bool? arquivada) 
         {
-            var arquivar = await _context.Notas.FindAsync(id);
-            if (arquivar != null)
+
+            var notaEncontrada = await _context.Notas.FindAsync(id);
+            if (notaEncontrada != null)
             {
-                arquivar.Arquivada = arquivada ?? true; 
+                notaEncontrada.Arquivada = arquivada ?? true; 
                 await _context.SaveChangesAsync(); 
             }
             
