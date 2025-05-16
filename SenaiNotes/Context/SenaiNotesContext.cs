@@ -8,9 +8,6 @@ namespace SenaiNotes.Context;
 
 public partial class SenaiNotesContext : DbContext
 {
-    public SenaiNotesContext()
-    {
-    }
 
     private IConfiguration _configuration;
 
