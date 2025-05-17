@@ -53,7 +53,7 @@ namespace APISenaiNotes.Controllers
             
             return Ok("Listar todos os usuários");
         }
-        
+
     }
 }
 

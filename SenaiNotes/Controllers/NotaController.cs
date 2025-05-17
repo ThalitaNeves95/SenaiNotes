@@ -46,6 +46,20 @@ namespace APISenaiNotes.Controllers
             return Ok(nota);
         }
 
+        [HttpGet("buscar/{titulo}")]
+        public IActionResult BuscarPorTitulo(string titulo)
+        {
+            var nota = _notaRepository.BuscarNotaPorTitulo(titulo);
+
+            if (nota == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(nota);
+        }
+
+
         [HttpPut("{id}")]
         public IActionResult Editar(int id, Nota nota)
         {
@@ -77,9 +91,9 @@ namespace APISenaiNotes.Controllers
         }
 
         [HttpPatch("{id}/arquivar")]
-        public async Task<IActionResult> AtualizarArquivado(int id, [FromBody] Nota nota)
+        public async Task<IActionResult> ArquivarNota(int id)
         {
-            await _notaRepository.ArquivarNota(id, nota.Arquivada);
+            await _notaRepository.ArquivarNota(id);
             return NoContent();
         }
     }

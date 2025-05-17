@@ -31,22 +31,25 @@ namespace APISenaiNotes.Repositories
 
         public void CadastrarOUsuario(Usuario usuario)
         {
-            throw new NotImplementedException();
+            _context.Usuarios.Add(usuario);
+            _context.SaveChanges();
+
         }
 
         Usuario IUsuarioRepository.Login(string email, string senha)
         {
-            throw new NotImplementedException();
+            return _context.Usuarios.FirstOrDefault(u => u.Email == email && u.Senha == senha);
+
         }
 
         Usuario IUsuarioRepository.BuscarPorId(int id)
         {
-            throw new NotImplementedException();
+            return _context.Usuarios.Find(id);
         }
 
         List<Usuario> IUsuarioRepository.ListarUsuarios()
         {
-            throw new NotImplementedException();
+            return _context.Usuarios.ToList();
         }
     }
 }
