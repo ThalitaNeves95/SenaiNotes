@@ -9,7 +9,8 @@ namespace APISenaiNotes.Interfaces
 
         Nota BuscarPorId(int id);
 
-        
+        List<Nota> BuscarNotaPorTitulo(string titulo);
+
         void Cadastrar(Nota nota);
 
         
@@ -18,6 +19,6 @@ namespace APISenaiNotes.Interfaces
         
         void Deletar(int id);
 
-        Task ArquivarNota(int id, bool? arquivada);
+        Task ArquivarNota(int id);
     }
 }
