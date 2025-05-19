@@ -29,12 +29,6 @@ namespace APISenaiNotes.Repositories
         return _context.Usuarios.ToList();
     }
 
-        public void CadastrarOUsuario(Usuario usuario)
-        {
-            _context.Usuarios.Add(usuario);
-            _context.SaveChanges();
-
-        }
 
         Usuario IUsuarioRepository.Login(string email, string senha)
         {

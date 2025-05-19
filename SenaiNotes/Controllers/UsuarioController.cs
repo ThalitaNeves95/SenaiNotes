@@ -41,13 +41,7 @@ namespace APISenaiNotes.Controllers
             return Ok($"Usuário {usuario} logado com sucesso");
 
         }
-        [HttpPost("cadastrar")]
-        public IActionResult Cadastrar([FromBody] string usuario)
-        {
             
-            return Created("", $"Usuário {usuario} cadastrado com sucesso");
-        }
-        [HttpGet("listar")]
         public IActionResult Listar()
         {
             
