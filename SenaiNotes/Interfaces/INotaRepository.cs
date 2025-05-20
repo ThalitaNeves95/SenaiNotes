@@ -11,12 +11,10 @@ namespace APISenaiNotes.Interfaces
 
         List<Nota> BuscarNotaPorTitulo(string titulo);
 
-        void Cadastrar(Nota nota);
+        void Cadastrar(Tag tag);
 
-        
-        void Atualizar(int id, Nota nota);
+        void Atualizar(int id, Tag tag);
 
-        
         void Deletar(int id);
 
         Task ArquivarNota(int id);

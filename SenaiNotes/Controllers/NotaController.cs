@@ -13,11 +13,9 @@ namespace APISenaiNotes.Controllers
 
         public NotaController(INotaRepository notaRepository)
         {
-            // Criar o repository não deve ser uma responsabilidade do Controller
             _notaRepository = notaRepository;
         }
 
-        // GET - Listar
         [HttpGet]
         public IActionResult ListarNotas()
         {
@@ -39,7 +37,6 @@ namespace APISenaiNotes.Controllers
 
             if (nota == null)
             {
-                // 404 - Não Encontrado
                 return NotFound();
             }
 
@@ -71,7 +68,7 @@ namespace APISenaiNotes.Controllers
             catch (Exception ex)
             {
 
-                return NotFound("Produto não encontrado!");
+                return NotFound("Nota não encontrado!");
             }
         }
 

@@ -76,7 +76,6 @@ namespace APISenaiNotes.Repositories
 
         public async Task ArquivarNota(int id)
         {
-
             var notaEncontrada = await _context.Notas.FindAsync(id);
             if (notaEncontrada != null)
             {
