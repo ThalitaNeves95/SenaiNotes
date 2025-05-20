@@ -1,4 +1,5 @@
-﻿using APISenaiNotes.Interfaces;
+﻿using APISenaiNotes.DTO;
+using APISenaiNotes.Interfaces;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using SenaiNotes.Models;
@@ -23,7 +24,7 @@ namespace APISenaiNotes.Controllers
         }
 
         [HttpPost]
-        public IActionResult CadastrarNota(Nota nota)
+        public IActionResult CadastrarNota(CadastrarNotaDto nota)
         {
             _notaRepository.Cadastrar(nota);
 
@@ -58,7 +59,7 @@ namespace APISenaiNotes.Controllers
 
 
         [HttpPut("{id}")]
-        public IActionResult Editar(int id, Nota nota)
+        public IActionResult Editar(int id, CadastrarNotaDto nota)
         {
             try
             {

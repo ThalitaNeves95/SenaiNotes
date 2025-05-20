@@ -41,30 +41,11 @@ namespace APISenaiNotes.Controllers
             return Ok($"Usuário {usuario} logado com sucesso");
 
         }
-        [HttpPost("cadastrar")]
-        public IActionResult Cadastrar([FromBody] string usuario)
-        {
             
-            return Created("", $"Usuário {usuario} cadastrado com sucesso");
-        }
-        [HttpGet("listar")]
         public IActionResult Listar()
         {
             
             return Ok("Listar todos os usuários");
-        }
-        
-        [HttpPut("atualizar/{id}")]
-        public IActionResult Atualizar(int id, [FromBody] string usuario)
-        {
-            
-            return Ok($"Usuário {usuario} atualizado com sucesso");
-        }
-        [HttpDelete("deletar/{id}")]
-        public IActionResult Deletar(int id)
-        {
-            
-            return Ok($"Usuário com id {id} deletado com sucesso");
         }
 
     }
