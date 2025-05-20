@@ -1,16 +1,16 @@
 ﻿using APISenaiNotes.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using SenaiNotes.Interfaces;
 using SenaiNotes.Models;
 using System;
+
 namespace APISenaiNotes.Controllers
 {
-    public class LembreteController
-    {
         [Route("api/[controller]")]
         [ApiController]
         public class LembreteController : ControllerBase
         {
+        
+
             private readonly ILembreterRepository _repo;
 
             public LembreteController(ILembreterRepository repo)
