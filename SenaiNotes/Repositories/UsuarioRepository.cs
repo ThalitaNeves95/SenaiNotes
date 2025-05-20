@@ -1,4 +1,5 @@
 ﻿using APISenaiNotes.Interfaces;
+using APISenaiNotes.Interfaces.DTO;
 using APISenaiNotes.Models;
 using SenaiNotes.Context;
 namespace APISenaiNotes.Repositories
@@ -16,7 +17,8 @@ namespace APISenaiNotes.Repositories
         _context.Usuarios.Add(usuario);
         _context.SaveChanges();
     }
-    public Usuario Login(string email, string senha)
+       
+        public Usuario Login(string email, string senha)
     {
         return _context.Usuarios.FirstOrDefault(u => u.Email == email && u.Senha == senha);
     }
@@ -29,7 +31,7 @@ namespace APISenaiNotes.Repositories
         return _context.Usuarios.ToList();
     }
 
-
+       
         Usuario IUsuarioRepository.Login(string email, string senha)
         {
             return _context.Usuarios.FirstOrDefault(u => u.Email == email && u.Senha == senha);
@@ -46,4 +48,5 @@ namespace APISenaiNotes.Repositories
             return _context.Usuarios.ToList();
         }
     }
+
 }

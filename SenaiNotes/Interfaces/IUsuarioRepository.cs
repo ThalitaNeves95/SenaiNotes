@@ -1,4 +1,5 @@
-﻿using APISenaiNotes.Models;
+﻿using APISenaiNotes.Interfaces.DTO;
+using APISenaiNotes.Models;
 using SenaiNotes.Context;
 using SenaiNotes.Models;
 using System.Security.Cryptography;
@@ -8,7 +9,8 @@ namespace APISenaiNotes.Interfaces
     public interface IUsuarioRepository
     {
         void CadastrarUsuario(Usuario usuario);
-        Usuario Login(string email, string senha);
+        Usuario Login(string email, 
+            string senha);
         Usuario BuscarPorId(int id);
         List<Usuario> ListarUsuarios();
 
@@ -36,7 +38,7 @@ namespace APISenaiNotes.Interfaces
         }
     }
 
-    public class UsuarioRepository : IUsuarioRepository
+    public class UsuarioRepository : IUsuarioRepository 
     {
         private SenaiNotesContext _context;
         private ISenhaRepository _senhaRepository;
@@ -70,7 +72,9 @@ namespace APISenaiNotes.Interfaces
             {
                 return usuario;
             }
+
             return null;
+
         }
     }
 }

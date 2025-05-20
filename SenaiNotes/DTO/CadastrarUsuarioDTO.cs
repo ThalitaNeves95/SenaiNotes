@@ -1,4 +1,4 @@
-﻿namespace APISenaiNotes.Interfaces.DTO
+﻿namespace APISenaiNotes.DTO
 {
     public class CadastrarUsuarioDTO
     {

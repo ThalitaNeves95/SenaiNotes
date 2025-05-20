@@ -1,4 +1,6 @@
 ﻿using System.ClientModel.Primitives;
+using APISenaiNotes.DTO;
+using APISenaiNotes.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,10 +21,11 @@ namespace APISenaiNotes.Controllers
             return Ok($"Listar o usuário com id {id}");
         }
         [HttpPost]
-        public IActionResult Post([FromBody] string usuario)
+        public IActionResult Post([FromBody] UsuarioDTO usuario)
         {
             return Created("", $"Usuário {usuario} cadastrado com sucesso");
         }
+
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] string usuario)
         {
@@ -41,7 +44,8 @@ namespace APISenaiNotes.Controllers
             return Ok($"Usuário {usuario} logado com sucesso");
 
         }
-            
+
+        [HttpGet("LISTAR")]
         public IActionResult Listar()
         {
             
