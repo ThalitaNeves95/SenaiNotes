@@ -4,16 +4,16 @@ namespace APISenaiNotes.Interfaces
 {
     public interface ITagRepository
     {
-        List<Tag> ListarTodos();
+        Task<List<Tag>> ListarTodos();
 
-        Tag BuscarPorId(int id);
+        Task<Tag?> BuscarPorId(int id);
 
-        List<Tag> BuscarTagPorTitulo(string titulo);
+        Task<List<Tag>> BuscarTagPorTitulo(string titulo);
 
-        void Cadastrar(Nota nota);
+        Task Cadastrar(Tag tag);
 
-        void Atualizar(int id, Nota nota);
+        Task Atualizar(int id, Tag tag);
 
-        void Deletar(int id);
+        Task Deletar(int id);
     }
 }

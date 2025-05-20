@@ -5,88 +5,86 @@ using System;
 
 namespace APISenaiNotes.Controllers
 {
-        [Route("api/[controller]")]
-        [ApiController]
-        public class LembreteController : ControllerBase
+    [Route("api/[controller]")]
+    [ApiController]
+    public class LembreteController : ControllerBase
+    {
+
+
+        private readonly ILembreterRepository _repo;
+
+        public LembreteController(ILembreterRepository repo)
         {
-        
-
-            private readonly ILembreterRepository _repo;
-
-            public LembreteController(ILembreterRepository repo)
+            _repo = repo;
+        }
+        [HttpPost]
+        public IActionResult CadastrarLembrete(Lembrete lembrete)
+        {
+            try
             {
-                _repo = repo;
+                _repo.Cadastrar(lembrete);
+                return CreatedAtAction(nameof(ListarTodos), new { id = lembrete.LembreteId }, lembrete);
             }
-            [HttpPost]
-            public IActionResult CadastrarLembrete(Lembrete lembrete)
+            catch (Exception ex)
             {
-                try
-                {
-                    _repo.Cadastrar(lembrete);
-                    return CreatedAtAction(nameof(ListarTodos), new { id = lembrete.LembreteId }, lembrete);
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                }
+                return BadRequest(ex.Message);
             }
-            [HttpGet]
-            public IActionResult ListarTodos()
+        }
+        [HttpGet]
+        public IActionResult ListarTodos()
+        {
+            try
             {
-                try
-                {
-                    return Ok(_repo.ListarTodos());
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                }
+                return Ok(_repo.ListarTodos());
             }
-            [HttpGet("{id}")]
-            public IActionResult ListarPorId(int id)
+            catch (Exception ex)
             {
-                try
-                {
-                    Lembrete lembrete = _repo.BuscarPorId(id);
-                    if (lembrete == null)
-                    {
-                        return NotFound();
-                    }
-                    return Ok(lembrete);
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                }
+                return BadRequest(ex.Message);
             }
-            [HttpPut("{id}")]
-            public IActionResult Atualizar(int id, Lembrete lembrete)
+        }
+        [HttpGet("{id}")]
+        public IActionResult ListarPorId(int id)
+        {
+            try
             {
-                try
+                Lembrete lembrete = _repo.BuscarPorId(id);
+                if (lembrete == null)
                 {
-                    _repo.Atualizar(id, lembrete);
-                    return NoContent();
+                    return NotFound();
                 }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                }
+                return Ok(lembrete);
             }
-            [HttpDelete("{id}")]
-            public IActionResult Deletar(int id)
+            catch (Exception ex)
             {
-                try
-                {
-                    _repo.Deletar(id);
-                    return NoContent();
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                }
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPut("{id}")]
+        public IActionResult Atualizar(int id, Lembrete lembrete)
+        {
+            try
+            {
+                _repo.Atualizar(id, lembrete);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpDelete("{id}")]
+        public IActionResult Deletar(int id)
+        {
+            try
+            {
+                _repo.Deletar(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
     }
 }
-
 

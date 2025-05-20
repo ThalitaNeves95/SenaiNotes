@@ -15,45 +15,51 @@ namespace APISenaiNotes.Controllers
         }
 
         [HttpGet]
-        public IActionResult ListarTags()
+        public async Task<IActionResult> ListarTags()
         {
-            return Ok(_tagRepository.ListarTodos());
+            var tags = await _tagRepository.ListarTodos();
+            return Ok(tags);
         }
 
         [HttpPost]
-        public IActionResult CadastrarTag(Tag tag)
+        public async Task<IActionResult> CadastrarTag(Tag tag)
         {
-            _tagRepository.Cadastrar(tag);
+            await _tagRepository.Cadastrar(tag);
             return Created();
         }
 
         [HttpGet("{id}")]
-        public IActionResult ListarPorId(int id)
+        public async Task<IActionResult> ListarPorId(int id)
         {
-            Tag tag = _tagRepository.BuscarPorId(id);
+            var tag = await _tagRepository.BuscarPorId(id);
+
             if (tag == null)
             {
                 return NotFound();
             }
+
             return Ok(tag);
         }
 
         [HttpGet("buscar/{titulo}")]
-        public IActionResult BuscarPorTitulo(string titulo)
+        public async Task<IActionResult> BuscarPorTitulo(string titulo)
         {
-            var tag = _tagRepository.BuscarTagPorTitulo(titulo);
-            if (tag == null)
+            var tags = await _tagRepository.BuscarTagPorTitulo(titulo);
+
+            if (tags == null || !tags.Any())
             {
                 return NotFound();
             }
-            return Ok(tag);
+
+            return Ok(tags);
         }
+
         [HttpPut("{id}")]
-        public IActionResult Editar(int id, Tag tag)
+        public async Task<IActionResult> Editar(int id, Tag tag)
         {
             try
             {
-                _tagRepository.Atualizar(id, tag);
+                await _tagRepository.Atualizar(id, tag);
                 return NoContent();
             }
             catch (Exception ex)
@@ -63,11 +69,11 @@ namespace APISenaiNotes.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Deletar(int id)
+        public async Task<IActionResult> Deletar(int id)
         {
             try
             {
-                _tagRepository.Deletar(id);
+                await _tagRepository.Deletar(id);
                 return NoContent();
             }
             catch (Exception ex)

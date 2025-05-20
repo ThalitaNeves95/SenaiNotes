@@ -1,4 +1,5 @@
 ﻿using APISenaiNotes.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using SenaiNotes.Context;
 using SenaiNotes.Models;
 
@@ -11,39 +12,47 @@ namespace APISenaiNotes.Repositories
         {
             _context = context;
         }
-        public List<Tag> ListarTodos()
+
+        public async Task<List<Tag>> ListarTodos()
         {
-            return _context.Tags.ToList();
+            return await _context.Tags.ToListAsync();
         }
-        public Tag? BuscarPorId(int id)
+
+        public async Task<Tag?> BuscarPorId(int id)
         {
-            return _context.Tags.FirstOrDefault(t => t.TagId == id);
+            return await _context.Tags.FirstOrDefaultAsync(t => t.TagId == id);
         }
-        public List<Tag> BuscarTagPorTitulo(string titulo)
+
+        public async Task<List<Tag>> BuscarTagPorTitulo(string titulo)
         {
-            return _context.Tags.Where(t => t.Nome.Contains(titulo)).ToList();
+            return await _context.Tags
+                        .Where(t => t.Nome.Contains(titulo))
+                        .ToListAsync();
         }
-        public void Cadastrar(Tag tag)
+
+        public async Task Cadastrar(Tag tag)
         {
-            _context.Tags.Add(tag);
-            _context.SaveChanges();
+            await _context.Tags.AddAsync(tag);
+            await _context.SaveChangesAsync();
         }
-        public void Atualizar(int id, Tag tag)
+
+        public async Task Atualizar(int id, Tag tag)
         {
-            var tagBuscada = BuscarPorId(id);
+            var tagBuscada = await BuscarPorId(id);
             if (tagBuscada != null)
             {
                 tagBuscada.Nome = tag.Nome;
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
-        public void Deletar(int id)
+
+        public async Task Deletar(int id)
         {
-            var tagBuscada = BuscarPorId(id);
+            var tagBuscada = await BuscarPorId(id);
             if (tagBuscada != null)
             {
                 _context.Tags.Remove(tagBuscada);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
     }

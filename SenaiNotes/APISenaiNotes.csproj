@@ -10,8 +10,6 @@
     <Compile Remove="IArgon2PasswordHasher.cs" />
     <Compile Remove="Interfaces\iLixeira.cs" />
     <Compile Remove="Interfaces\ILixeiraRepository.cs" />
-    <Compile Remove="Interfaces\iTagRepository.cs" />
-    <Compile Remove="Repositories\TagRepository.cs" />
   </ItemGroup>
 
   <ItemGroup>

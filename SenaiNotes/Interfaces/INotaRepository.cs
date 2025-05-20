@@ -4,18 +4,17 @@ namespace APISenaiNotes.Interfaces
 {
     public interface INotaRepository
     {
-        
-        List<Nota> ListarTodos();
+        Task<List<Nota>> ListarTodos();
 
-        Nota BuscarPorId(int id);
+        Task<Nota?> BuscarPorId(int id);
 
-        List<Nota> BuscarNotaPorTitulo(string titulo);
+        Task<List<Nota>> BuscarNotaPorTitulo(string titulo);
 
-        void Cadastrar(Tag tag);
+        Task Cadastrar(Nota nota);
 
-        void Atualizar(int id, Tag tag);
+        Task Atualizar(int id, Nota nota);
 
-        void Deletar(int id);
+        Task Deletar(int id);
 
         Task ArquivarNota(int id);
     }

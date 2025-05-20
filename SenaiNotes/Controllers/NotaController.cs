@@ -18,23 +18,23 @@ namespace APISenaiNotes.Controllers
         }
 
         [HttpGet]
-        public IActionResult ListarNotas()
+        public async Task<IActionResult> ListarNotas()
         {
-            return Ok(_notaRepository.ListarTodos());
+            var notas = await _notaRepository.ListarTodos();
+            return Ok(notas);
         }
 
         [HttpPost]
-        public IActionResult CadastrarNota(CadastrarNotaDto nota)
+        public async Task<IActionResult> CadastrarNota(CadastrarNotaDto nota)
         {
-            _notaRepository.Cadastrar(nota);
-
+            await _notaRepository.Cadastrar(nota);
             return Created();
         }
 
         [HttpGet("{id}")]
-        public IActionResult ListarPorId(int id)
+        public async Task<IActionResult> ListarPorId(int id)
         {
-            Nota nota = _notaRepository.BuscarPorId(id);
+            var nota = await _notaRepository.BuscarPorId(id);
 
             if (nota == null)
             {
@@ -45,43 +45,40 @@ namespace APISenaiNotes.Controllers
         }
 
         [HttpGet("buscar/{titulo}")]
-        public IActionResult BuscarPorTitulo(string titulo)
+        public async Task<IActionResult> BuscarPorTitulo(string titulo)
         {
-            var nota = _notaRepository.BuscarNotaPorTitulo(titulo);
+            var notas = await _notaRepository.BuscarNotaPorTitulo(titulo);
 
-            if (nota == null)
+            if (notas == null || !notas.Any())
             {
                 return NotFound();
             }
 
-            return Ok(nota);
+            return Ok(notas);
         }
 
-
         [HttpPut("{id}")]
-        public IActionResult Editar(int id, CadastrarNotaDto nota)
+        public async Task<IActionResult> Editar(int id, CadastrarNotaDto nota)
         {
             try
             {
-                _notaRepository.Atualizar(id, nota);
+                await _notaRepository.Atualizar(id, nota);
                 return Ok(nota);
             }
             catch (Exception ex)
             {
-
-                return NotFound("Nota não encontrado!");
+                return NotFound("Nota não encontrada!");
             }
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Deletar(int id)
+        public async Task<IActionResult> Deletar(int id)
         {
             try
             {
-                _notaRepository.Deletar(id);
+                await _notaRepository.Deletar(id);
                 return NoContent();
             }
-
             catch (Exception ex)
             {
                 return NotFound("Nota não encontrada!");
