@@ -1,15 +1,16 @@
 ﻿using APISenaiNotes.DTO;
+using APISenaiNotes.ViewModels;
 using SenaiNotes.Models;
 
 namespace APISenaiNotes.Interfaces
 {
     public interface INotaRepository
     {
-        Task<List<Nota>> ListarTodos();
+        Task<List<ListarNotaViewModel>> ListarTodos();
 
         Task<Nota?> BuscarPorId(int id);
 
-        Task<List<Nota>> BuscarNotaPorTitulo(string titulo);
+        Task<List<Nota>> BuscarNotaPorTexto(string titulo);
 
         Task Cadastrar(CadastrarNotaDto nota);
 

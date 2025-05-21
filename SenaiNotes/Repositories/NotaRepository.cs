@@ -1,6 +1,7 @@
 ﻿using APISenaiNotes.DTO;
 using APISenaiNotes.Interfaces;
 using APISenaiNotes.Models;
+using APISenaiNotes.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using SenaiNotes.Context;
 using SenaiNotes.Models;
@@ -21,7 +22,7 @@ namespace APISenaiNotes.Repositories
             return await _context.Notas.FirstOrDefaultAsync(p => p.NotaId == id);
         }
 
-        public async Task<List<Nota>> BuscarNotaPorTitulo(string titulo)
+        public async Task<List<Nota>> BuscarNotaPorTexto(string titulo)
         {
             return await _context.Notas.Where(n => n.Titulo.Contains(titulo)).ToListAsync();
         }
@@ -65,12 +66,27 @@ namespace APISenaiNotes.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Nota>> ListarTodos()
+        public async Task<List<ListarNotaViewModel>> ListarTodos()
         {
             var anotacoes = _context.Notas
-                .Include(n => n.Tags);
+                .Include(n => n.Tags)
+                .Select(n => new ListarNotaViewModel
+                {
+                    NotaId = n.NotaId,
+                    Titulo = n.Titulo,
+                    Imagem = n.Imagem,
+                    Conteudo = n.Conteudo,
+                    Arquivada = n.Arquivada,
+                    DataCriacao = n.DataCriacao,
+                    DataAtualizacao = n.DataAtualizacao,
+                    Tags = n.Tags.Select(t => new Tag
+                    {
+                        TagId = t.TagId,
+                        Nome = t.Nome
+                    }).ToList()
+                });
 
-            return await _context.Notas.ToListAsync();
+            return await anotacoes.ToListAsync();
         }
 
         public async Task ArquivarNota(int id)

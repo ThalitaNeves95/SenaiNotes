@@ -45,9 +45,9 @@ namespace APISenaiNotes.Controllers
         }
 
         [HttpGet("buscar/{titulo}")]
-        public async Task<IActionResult> BuscarPorTitulo(string titulo)
+        public async Task<IActionResult> BuscarNotaPorTexto(string titulo)
         {
-            var notas = await _notaRepository.BuscarNotaPorTitulo(titulo);
+            var notas = await _notaRepository.BuscarNotaPorTexto(titulo);
 
             if (notas == null || !notas.Any())
             {
