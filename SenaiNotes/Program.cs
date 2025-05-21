@@ -13,7 +13,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    });
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -27,6 +31,7 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddDbContext<SenaiNotesContext>();
 builder.Services.AddTransient<INotaRepository, NotaRepository>();
+builder.Services.AddTransient<ITagRepository, TagRepository>();
 
 builder.Services.AddCors(
     options =>

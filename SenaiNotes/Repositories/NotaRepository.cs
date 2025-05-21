@@ -67,6 +67,9 @@ namespace APISenaiNotes.Repositories
 
         public async Task<List<Nota>> ListarTodos()
         {
+            var anotacoes = _context.Notas
+                .Include(n => n.Tags);
+
             return await _context.Notas.ToListAsync();
         }
 
