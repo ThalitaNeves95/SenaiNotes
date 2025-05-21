@@ -1,4 +1,6 @@
-﻿using APISenaiNotes.Interfaces;
+﻿using APISenaiNotes.DTO;
+using APISenaiNotes.Interfaces;
+using APISenaiNotes.Models;
 using Microsoft.EntityFrameworkCore;
 using SenaiNotes.Context;
 using SenaiNotes.Models;
@@ -24,7 +26,7 @@ namespace APISenaiNotes.Repositories
             return await _context.Notas.Where(n => n.Titulo.Contains(titulo)).ToListAsync();
         }
 
-        public async Task Atualizar(int id, Nota nota)
+        public async Task Atualizar(int id, CadastrarNotaDto nota)
         {
             var NotaEncontrada = await _context.Notas.FindAsync(id);
 
@@ -36,9 +38,17 @@ namespace APISenaiNotes.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task Cadastrar(Nota nota)
+        public async Task Cadastrar(CadastrarNotaDto notaDto)
         {
-            await _context.Notas.AddAsync(nota);
+            Nota notaCadastrar = new Nota
+            {
+                Titulo = notaDto.Titulo,
+                Conteudo = notaDto.Conteudo,
+                Imagem = notaDto.Imagem,
+                UsuarioId = notaDto.UsuarioId,
+                CategoriaId = notaDto.CategoriaId
+            };
+            await _context.Notas.AddAsync(notaCadastrar);
             await _context.SaveChangesAsync();
         }
 

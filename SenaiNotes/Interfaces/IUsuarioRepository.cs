@@ -1,5 +1,4 @@
-﻿using APISenaiNotes.Interfaces.DTO;
-using APISenaiNotes.Models;
+﻿using APISenaiNotes.Models;
 using SenaiNotes.Context;
 using SenaiNotes.Models;
 using System.Security.Cryptography;

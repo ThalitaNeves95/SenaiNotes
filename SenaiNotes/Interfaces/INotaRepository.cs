@@ -1,4 +1,5 @@
-﻿using SenaiNotes.Models;
+﻿using APISenaiNotes.DTO;
+using SenaiNotes.Models;
 
 namespace APISenaiNotes.Interfaces
 {
@@ -10,9 +11,9 @@ namespace APISenaiNotes.Interfaces
 
         Task<List<Nota>> BuscarNotaPorTitulo(string titulo);
 
-        Task Cadastrar(Nota nota);
+        Task Cadastrar(CadastrarNotaDto nota);
 
-        Task Atualizar(int id, Nota nota);
+        Task Atualizar(int id, CadastrarNotaDto nota);
 
         Task Deletar(int id);
 

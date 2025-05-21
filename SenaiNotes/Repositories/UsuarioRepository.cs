@@ -1,5 +1,4 @@
 ﻿using APISenaiNotes.Interfaces;
-using APISenaiNotes.Interfaces.DTO;
 using APISenaiNotes.Models;
 using SenaiNotes.Context;
 namespace APISenaiNotes.Repositories
