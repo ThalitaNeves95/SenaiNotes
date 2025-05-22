@@ -1,7 +1,7 @@
 ﻿using APISenaiNotes.Interfaces;
+using APISenaiNotes.Models;
 using Microsoft.EntityFrameworkCore;
-using SenaiNotes.Context;
-using SenaiNotes.Models;
+using APISenaiNotes.Context;
 
 namespace APISenaiNotes.Repositories
 {

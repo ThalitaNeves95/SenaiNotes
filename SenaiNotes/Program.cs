@@ -1,5 +1,5 @@
 using Microsoft.OpenApi.Models;
-using SenaiNotes.Context;
+using APISenaiNotes.Context;
 
 using APISenaiNotes.Interfaces;
 using APISenaiNotes.Repositories;
@@ -10,8 +10,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.EnableAnnotations();
+});
 
 builder.Services.AddControllers()
     .AddNewtonsoftJson(options =>
@@ -32,6 +34,8 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddDbContext<SenaiNotesContext>();
 builder.Services.AddTransient<INotaRepository, NotaRepository>();
 builder.Services.AddTransient<ITagRepository, TagRepository>();
+builder.Services.AddTransient<INovoUsuarioRepository, NovoUsuarioRepository>();
+
 
 builder.Services.AddCors(
     options =>

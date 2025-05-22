@@ -1,6 +1,6 @@
 ﻿using APISenaiNotes.DTO;
 using APISenaiNotes.ViewModels;
-using SenaiNotes.Models;
+using APISenaiNotes.Models;
 
 namespace APISenaiNotes.Interfaces
 {

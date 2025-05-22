@@ -1,6 +1,6 @@
 ﻿using APISenaiNotes.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using SenaiNotes.Models;
+using APISenaiNotes.Models;
 using System;
 
 namespace APISenaiNotes.Controllers

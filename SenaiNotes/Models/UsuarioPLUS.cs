@@ -1,4 +1,4 @@
-﻿using SenaiNotes.Models;
+﻿using APISenaiNotes.Models;
 
 namespace APISenaiNotes.Models
 {

@@ -1,4 +1,4 @@
-﻿using SenaiNotes.Models;
+﻿using APISenaiNotes.Models;
 
 namespace APISenaiNotes.Interfaces
 {
@@ -6,7 +6,7 @@ namespace APISenaiNotes.Interfaces
     {
         Task<List<Tag>> ListarTodos();
 
-        Task<Tag?> BuscarPorId(int id);
+        Task<Tag?> BuscarPorUsuarioeId(int id);
 
         Task<List<Tag>> BuscarTagPorTitulo(string titulo);
 

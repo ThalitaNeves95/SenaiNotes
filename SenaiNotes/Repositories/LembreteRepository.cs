@@ -1,8 +1,8 @@
 ﻿using APISenaiNotes.Interfaces;
-using SenaiNotes.Context;
-using SenaiNotes.Models;
+using APISenaiNotes.Context;
 using System.Collections.Generic;
 using System.Linq;
+using APISenaiNotes.Models;
 
 namespace APISenaiNotes.Repositories
 {

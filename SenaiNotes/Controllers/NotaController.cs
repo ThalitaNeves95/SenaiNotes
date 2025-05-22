@@ -2,7 +2,8 @@
 using APISenaiNotes.Interfaces;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using SenaiNotes.Models;
+using APISenaiNotes.Models;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace APISenaiNotes.Controllers
 {
@@ -25,6 +26,7 @@ namespace APISenaiNotes.Controllers
         }
 
         [HttpPost]
+        [SwaggerOperation(Summary = "Cadastrar uma nova nota")]
         public async Task<IActionResult> CadastrarNota(CadastrarNotaDto nota)
         {
             await _notaRepository.Cadastrar(nota);
@@ -32,7 +34,7 @@ namespace APISenaiNotes.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> ListarPorId(int id)
+        public async Task<IActionResult> ListarPorUsuarioeId(int id)
         {
             var nota = await _notaRepository.BuscarPorId(id);
 

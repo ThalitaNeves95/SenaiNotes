@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SenaiNotes.Models;
+namespace APISenaiNotes.Models;
 
 public partial class Lembrete
 {

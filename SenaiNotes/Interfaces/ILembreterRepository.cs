@@ -1,4 +1,4 @@
-﻿using SenaiNotes.Models;
+﻿using APISenaiNotes.Models;
 using System.Collections.Generic;
 
 namespace APISenaiNotes.Interfaces
