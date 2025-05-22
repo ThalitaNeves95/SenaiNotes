@@ -32,8 +32,8 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddDbContext<SenaiNotesContext>();
-builder.Services.AddTransient<INotaRepository, NotaRepository>();
-builder.Services.AddTransient<ITagRepository, TagRepository>();
+// builder.Services.AddTransient<INotaRepository, NotaRepository>();
+// builder.Services.AddTransient<ITagRepository, TagRepository>();
 builder.Services.AddTransient<INovoUsuarioRepository, NovoUsuarioRepository>();
 
 
@@ -44,8 +44,8 @@ builder.Services.AddCors(
             name: "minhasOrigens",
             policy =>
             {
-                // TODO: Alterar link para endereço do Front-End
-                policy.WithOrigins("Endereço do Front-End: http://localhost:3000");
+                // TODO: Alterar link para endereï¿½o do Front-End
+                policy.WithOrigins("Endereï¿½o do Front-End: http://localhost:3000");
                 policy.AllowAnyHeader();
                 policy.AllowAnyMethod();
             }

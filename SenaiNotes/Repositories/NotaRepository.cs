@@ -24,11 +24,6 @@ namespace APISenaiNotes.Repositories
             var tags = await _context.Notas.FirstOrDefaultAsync(p => p.NotaId == id);
         }
 
-        public async Task<List<Nota>> BuscarNotaPorTexto(string titulo)
-        {
-            return await _context.Notas.Where(n => n.Titulo.Contains(titulo)).ToListAsync();
-        }
-
         public async Task Atualizar(int id, CadastrarNotaDto nota)
         {
             var NotaEncontrada = await _context.Notas.FindAsync(id);
@@ -41,7 +36,7 @@ namespace APISenaiNotes.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task Cadastrar(CadastrarNotaDto notaDto)
+        public async Task CadastrarNotaDto(CadastrarNotaDto notaDto)
         {
             // 1 - Percorrer a Lista de Tags
             // 1.1 - Essa Tag já existe?
@@ -50,17 +45,23 @@ namespace APISenaiNotes.Repositories
             List<int>idTags = new List<int>();
             foreach (var tag in notaDto.Tags)
             {
-                var tagEncontrada = await _tagRepository.BuscarTagPorTitulo(tag.Nome, item);
+                var tagEncontrada = await _tagRepository.BuscarPorUsuarioeId(tag.usuarioId, item);
 
                 if (tagEncontrada == null)
                 {
-                    idTags.Add(tagEncontrada.TagId);
+                    
+                    tagEncontrada = new Tag
+                    {
+                        NomeTag = item,
+                        UsuarioIs = anotacao.UsuarioId
+                    };
+
+                    _context.Add(tagEncontrada);
+                    _context.SaveChanges();
                 }
-                else
-                {
-                    await _tagRepository.Cadastrar(tag);
-                    idTags.Add(tag.TagId);
-                }
+
+                idTags.Add(tagEncontrada.IdTag);
+
             }
             await _context.Notas.AddAsync();
             await _context.SaveChangesAsync();

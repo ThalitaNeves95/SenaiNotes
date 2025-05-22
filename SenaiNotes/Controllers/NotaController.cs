@@ -46,19 +46,6 @@ namespace APISenaiNotes.Controllers
             return Ok(nota);
         }
 
-        [HttpGet("buscar/{titulo}")]
-        public async Task<IActionResult> BuscarNotaPorTexto(string titulo)
-        {
-            var notas = await _notaRepository.BuscarNotaPorTexto(titulo);
-
-            if (notas == null || !notas.Any())
-            {
-                return NotFound();
-            }
-
-            return Ok(notas);
-        }
-
         [HttpPut("{id}")]
         public async Task<IActionResult> Editar(int id, CadastrarNotaDto nota)
         {

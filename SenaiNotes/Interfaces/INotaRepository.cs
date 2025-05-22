@@ -8,11 +8,7 @@ namespace APISenaiNotes.Interfaces
     {
         Task<List<ListarNotaViewModel>> ListarTodos();
 
-        Task<Nota?> BuscarPorId(int id);
-
-        Task<List<Nota>> BuscarNotaPorTexto(string titulo);
-
-        Task Cadastrar(CadastrarNotaDto nota);
+        Task CadastrarNotaDto(CadastrarNotaDto nota);
 
         Task Atualizar(int id, CadastrarNotaDto nota);
 

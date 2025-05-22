@@ -11,15 +11,7 @@ public partial class SenaiNotesContext : DbContext
         : base(options)
     {
     }
-
-    public virtual DbSet<AuditoriaGeral> AuditoriaGerals { get; set; }
-
-    public virtual DbSet<Categoria> Categorias { get; set; }
-
-    public virtual DbSet<Lembrete> Lembretes { get; set; }
-
-    public virtual DbSet<Lixeira> Lixeiras { get; set; }
-
+    
     public virtual DbSet<Nota> Notas { get; set; }
 
     public virtual DbSet<Tag> Tags { get; set; }

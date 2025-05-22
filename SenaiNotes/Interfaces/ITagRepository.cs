@@ -6,9 +6,7 @@ namespace APISenaiNotes.Interfaces
     {
         Task<List<Tag>> ListarTodos();
 
-        Task<Tag?> BuscarPorUsuarioeId(int id);
-
-        Task<List<Tag>> BuscarTagPorTitulo(string titulo);
+        Task<Tag?> BuscarPorUsuarioeId(int id, string nome);
 
         Task Cadastrar(Tag tag);
 

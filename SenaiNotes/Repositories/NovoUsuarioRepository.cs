@@ -13,35 +13,45 @@ namespace APISenaiNotes.Repositories
             _context = context;
         }
 
-        public void Atualizar(int id, Usuario cliente)
+       public async Task Atualizar(int id, Usuario usuario)
         {
-            throw new NotImplementedException();
+            var usuarioExistente = await _context.Usuarios.FindAsync(id);
+
+            if (usuarioExistente == null)
+                throw new InvalidOperationException("Usuário não encontrado!");
+
+            await _context.SaveChangesAsync();
         }
 
-        public List<Usuario> BuscarClientePorNome(string nome)
+        public async Task CadastrarAsync(Usuario usuario)
         {
-            //Where - traz todos que atendem uma condicao
-            //var listaClientes = _context.Clientes.Where(c => c.NomeCompleto == nome).ToList();
-            var listarUsuarios = _context.Usuarios.Where(c => c.NomeUsuario.Contains(nome)).ToList();
+            await _context.Usuarios.AddAsync(usuario);
 
-            return listarUsuarios;
+            await _context.SaveChangesAsync();
         }
 
-        public Usuario? BuscarPorId(int id)
-        {
-            return _context.Usuarios.FirstOrDefault(c => c.UsuarioId == id);
-        }
+        // public Usuario? BuscarPorEmailSenha(string email, string senha)
+        // {
+        //     // Encontrar o Cliente que possui o e-mail e senha fornecidos
+        //     // Quando eu quero 1 só coisa, utilizo o FirstOrDefault
+        //     var usuarioEncontrado = _context.Usuarios.FirstOrDefault(c => c.Email == email);
 
-        public void Cadastrar(Usuario usuario)
-        {
-            _context.Usuarios.Add(usuario);
-            // 2 - Salvo a Alteração
-            _context.SaveChanges();
-        }
+        //     // Caso não encontre, retorno nulo
+        //     if(usuarioEncontrado == null)
+        //     return null;
 
-        public void Deletar(int id)
+        //     var passwordService = new PasswordService();
+
+        //     // Verificar se a senha do usuário gera a mesma Hash
+        //     var resultado = passwordService.VerificarSenha(usuarioEncontrado, senha);
+
+        //     if(resultado == true) return usuarioEncontrado;
+        //     return null;
+        // }
+
+        public async Task Deletar(int id)
         {
-            var usuarioEncontrado = _context.Usuarios.Find(id);
+            var usuarioEncontrado = await _context.Usuarios.FindAsync(id);
 
             if (usuarioEncontrado == null)
             {
@@ -50,13 +60,12 @@ namespace APISenaiNotes.Repositories
 
             _context.Usuarios.Remove(usuarioEncontrado);
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public List<Usuario> ListarTodos()
+        public async Task<List<Usuario>> ListarTodos()
         {
-            // Select permite que eu selecione quais campos eu quero pegar
-            return _context.Usuarios.ToList();
+            return await _context.Usuarios.ToListAsync();
         }
     }
 }

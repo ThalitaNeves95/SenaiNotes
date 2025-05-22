@@ -5,19 +5,14 @@ namespace APISenaiNotes.Interfaces
     public interface INovoUsuarioRepository
     {
 
-        List<Usuario> ListarTodos();
-
-        Usuario? BuscarPorId(int id);
-
-        List<Usuario> BuscarClientePorNome(string nome);
-
-        // Create
-        void Cadastrar(Usuario usuario);
-
-        // Update
-        void Atualizar(int id, Usuario cliente);
-
-        // Delete
-        void Deletar(int id);
+        Task<List<Usuario>> ListarTodos();
+    
+        Task<Usuario?> BuscarPorEmailSenha(string email, string senha);
+        
+        Task Cadastrar(Usuario usuario);
+        
+        Task Atualizar(int id, Usuario usuario);
+        
+        Task Deletar(int id);
     }
 }
