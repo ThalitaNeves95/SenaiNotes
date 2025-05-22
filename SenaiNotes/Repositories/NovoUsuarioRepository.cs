@@ -1,6 +1,7 @@
 ﻿using APISenaiNotes.Interfaces;
 using APISenaiNotes.Models;
 using APISenaiNotes.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace APISenaiNotes.Repositories
 {
@@ -23,31 +24,31 @@ namespace APISenaiNotes.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task CadastrarAsync(Usuario usuario)
+        public async Task Cadastrar(Usuario usuario)
         {
             await _context.Usuarios.AddAsync(usuario);
 
             await _context.SaveChangesAsync();
         }
 
-        // public Usuario? BuscarPorEmailSenha(string email, string senha)
-        // {
-        //     // Encontrar o Cliente que possui o e-mail e senha fornecidos
-        //     // Quando eu quero 1 só coisa, utilizo o FirstOrDefault
-        //     var usuarioEncontrado = _context.Usuarios.FirstOrDefault(c => c.Email == email);
+        //public Usuario? BuscarPorEmailSenha(string email, string senha)
+        //{
+        //    // Encontrar o Cliente que possui o e-mail e senha fornecidos
+        //    // Quando eu quero 1 só coisa, utilizo o FirstOrDefault
+        //    var usuarioEncontrado = _context.Usuarios.FirstOrDefault(c => c.Email == email);
 
-        //     // Caso não encontre, retorno nulo
-        //     if(usuarioEncontrado == null)
-        //     return null;
+        //    // Caso não encontre, retorno nulo
+        //    if (usuarioEncontrado == null)
+        //        return null;
 
-        //     var passwordService = new PasswordService();
+        //    var passwordService = new PasswordService();
 
-        //     // Verificar se a senha do usuário gera a mesma Hash
-        //     var resultado = passwordService.VerificarSenha(usuarioEncontrado, senha);
+        //    // Verificar se a senha do usuário gera a mesma Hash
+        //    var resultado = passwordService.VerificarSenha(usuarioEncontrado, senha);
 
-        //     if(resultado == true) return usuarioEncontrado;
-        //     return null;
-        // }
+        //    if (resultado == true) return usuarioEncontrado;
+        //    return null;
+        //}
 
         public async Task Deletar(int id)
         {

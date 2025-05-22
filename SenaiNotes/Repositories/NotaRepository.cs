@@ -19,10 +19,10 @@ namespace APISenaiNotes.Repositories
             _tagRepository = tagRepository;
         }
 
-        public async Task<Nota?> BuscarPorUsuarioeId(int id)
-        {
-            var tags = await _context.Notas.FirstOrDefaultAsync(p => p.NotaId == id);
-        }
+        //public async Task<Nota?> BuscarPorUsuario(int id)
+        //{
+        //    var tags = await _context.Notas.FirstOrDefaultAsync(p => p.NotaId == id);
+        //}
 
         public async Task Atualizar(int id, CadastrarNotaDto nota)
         {
@@ -36,35 +36,49 @@ namespace APISenaiNotes.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task CadastrarNotaDto(CadastrarNotaDto notaDto)
+        public async Task<CadastrarNotaDto> CadastrarNotaDto(CadastrarNotaDto notaDto)
         {
             // 1 - Percorrer a Lista de Tags
             // 1.1 - Essa Tag já existe?
             //1.2 - Pegar o ID dela
             // 1.3 - Se não existe, cadastrar a tag e pegar ID dela
-            List<int>idTags = new List<int>();
-            foreach (var tag in notaDto.Tags)
+            List<Tag> tags = new List<Tag>();
+
+            foreach (var item in notaDto.Tags)
             {
-                var tagEncontrada = await _tagRepository.BuscarPorUsuarioeId(tag.usuarioId, item);
+                var tagEncontrada = await _tagRepository.BuscarPorNomeeUsuario(item);
 
                 if (tagEncontrada == null)
                 {
-                    
                     tagEncontrada = new Tag
                     {
-                        NomeTag = item,
-                        UsuarioIs = anotacao.UsuarioId
+                        Nome = item,
                     };
 
-                    _context.Add(tagEncontrada);
-                    _context.SaveChanges();
                 }
 
-                idTags.Add(tagEncontrada.IdTag);
+                tags.Add(tagEncontrada);
 
+                _context.Add(tagEncontrada);
+                _context.SaveChanges();
             }
-            await _context.Notas.AddAsync();
+
+            var novaNota = new Nota
+            {
+                Titulo = notaDto.Titulo,
+                Imagem = notaDto.Imagem,
+                Conteudo = notaDto.Conteudo,
+                Arquivada = false,
+                DataCriacao = DateTime.Now,
+                DataAtualizacao = DateTime.Now,
+                UsuarioId = notaDto.UsuarioId,
+                Tags = tags
+            };
+
+            _context.Notas.Add(novaNota);
             await _context.SaveChangesAsync();
+
+            return notaDto;
         }
 
         public async Task Deletar(int id)
@@ -112,11 +126,6 @@ namespace APISenaiNotes.Repositories
                 notaEncontrada.Arquivada = !notaEncontrada.Arquivada;
                 await _context.SaveChangesAsync();
             }
-        }
-
-        public Task<Nota?> BuscarPorId(int id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -29,21 +29,9 @@ namespace APISenaiNotes.Controllers
         [SwaggerOperation(Summary = "Cadastrar uma nova nota")]
         public async Task<IActionResult> CadastrarNota(CadastrarNotaDto nota)
         {
-            await _notaRepository.Cadastrar(nota);
+            await _notaRepository.CadastrarNotaDto(nota);
+
             return Created();
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> ListarPorUsuarioeId(int id)
-        {
-            var nota = await _notaRepository.BuscarPorId(id);
-
-            if (nota == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(nota);
         }
 
         [HttpPut("{id}")]

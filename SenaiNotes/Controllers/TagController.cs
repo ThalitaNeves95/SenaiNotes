@@ -28,19 +28,6 @@ namespace APISenaiNotes.Controllers
             return Created();
         }
 
-        [HttpGet("buscar/{titulo}")]
-        public async Task<IActionResult> BuscarPorTitulo(string titulo)
-        {
-            var tags = await _tagRepository.BuscarTagPorTitulo(titulo);
-
-            if (tags == null || !tags.Any())
-            {
-                return NotFound();
-            }
-
-            return Ok(tags);
-        }
-
         [HttpPut("{id}")]
         public async Task<IActionResult> Editar(int id, Tag tag)
         {

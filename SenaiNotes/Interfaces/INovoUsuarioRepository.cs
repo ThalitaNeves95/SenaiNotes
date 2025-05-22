@@ -7,7 +7,7 @@ namespace APISenaiNotes.Interfaces
 
         Task<List<Usuario>> ListarTodos();
     
-        Task<Usuario?> BuscarPorEmailSenha(string email, string senha);
+        //Task<Usuario?> BuscarPorEmailSenha(string email, string senha);
         
         Task Cadastrar(Usuario usuario);
         
