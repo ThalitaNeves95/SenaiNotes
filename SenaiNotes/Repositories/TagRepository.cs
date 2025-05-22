@@ -55,5 +55,10 @@ namespace APISenaiNotes.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public Task<Tag?> BuscarPorUsuarioeId(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

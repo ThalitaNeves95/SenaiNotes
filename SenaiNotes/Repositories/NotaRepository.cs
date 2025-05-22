@@ -15,8 +15,8 @@ namespace APISenaiNotes.Repositories
 
         public NotaRepository(SenaiNotesContext context, ITagRepository tagRepository)
         {
-            _context = context;
             _tagRepository = tagRepository;
+            _context = context;
         }
 
         public async Task<Nota?> BuscarPorUsuarioeId(int id)
