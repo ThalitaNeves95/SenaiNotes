@@ -28,6 +28,19 @@ namespace APISenaiNotes.Controllers
             return Ok(notas);
         }
 
+        [HttpGet("buscar/{nota}")]
+        public async Task<IActionResult> BuscarNotaPorNomeAsync(string nota)
+        {
+            var nomeNota = await _notaRepository.BuscarNotaPorNomeAsync(nota);
+
+            if (nomeNota == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(nomeNota);
+        }
+
         [HttpPost]
         [SwaggerOperation(Summary = "Cadastra uma nova nota.")]
         public async Task<IActionResult> CadastrarNota(CadastrarNotaDto notaDto)

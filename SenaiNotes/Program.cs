@@ -69,7 +69,7 @@ builder.Services.AddCors(
             policy =>
             {
                 // TODO: Alterar link para endere�o do Front-End
-                policy.WithOrigins("Endere�o do Front-End: http://localhost:3000");
+                policy.WithOrigins("http://localhost:5173", "http://127.0.0.1:5173");
                 policy.AllowAnyHeader();
                 policy.AllowAnyMethod();
             }

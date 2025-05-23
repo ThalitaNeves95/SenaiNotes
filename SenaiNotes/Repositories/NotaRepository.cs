@@ -19,11 +19,6 @@ namespace APISenaiNotes.Repositories
             _tagRepository = tagRepository;
         }
 
-        //public async Task<Nota?> BuscarPorUsuario(int id)
-        //{
-        //    var tags = await _context.Notas.FirstOrDefaultAsync(p => p.NotaId == id);
-        //}
-
         public async Task Atualizar(int id, CadastrarNotaDto nota)
         {
             var NotaEncontrada = await _context.Notas.FindAsync(id);
@@ -34,6 +29,21 @@ namespace APISenaiNotes.Repositories
             }
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<CadastrarNotaDto>> BuscarNotaPorNomeAsync(string nota)
+        {
+            return await _context.Notas
+                .Where(n => n.Titulo.Contains(nota))
+                .Select(n => new CadastrarNotaDto
+                {
+                    UsuarioId = n.UsuarioId,
+                    Titulo = n.Titulo,
+                    Imagem = n.Imagem,
+                    Conteudo = n.Conteudo,
+                    Tags = n.Tags.Select(t => t.Nome).ToList()
+                })
+                .ToListAsync();
         }
 
         public async Task<CadastrarNotaDto> CadastrarNotaDto(CadastrarNotaDto notaDto)
