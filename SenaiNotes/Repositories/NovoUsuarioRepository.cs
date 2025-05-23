@@ -16,7 +16,7 @@ namespace APISenaiNotes.Repositories
             _context = context;
         }
 
-        public async Task Atualizar(int id, Usuario usuario)
+        public async Task Atualizar(int id, NovoUsuarioDto usuario)
         {
             var usuarioExistente = await _context.Usuarios.FindAsync(id);
 
@@ -44,36 +44,24 @@ namespace APISenaiNotes.Repositories
 
         }
 
-        //public async Task Cadastrar(Usuario usuario)
-        //{
-        //    await _context.Usuarios.AddAsync(usuario);
-
-        //    await _context.SaveChangesAsync();
-        //}
-
         public async Task<Usuario?> Login(string email, string senha)
         {
             try
             {
-                // Busca assíncrona do cliente por email
                 var usuarioEncontrado = await _context.Usuarios
                     .FirstOrDefaultAsync(c => c.Email == email);
 
-                // Caso não encontre, retorna nulo
                 if (usuarioEncontrado == null)
                     return null;
 
                 var passwordService = new PasswordService();
 
-                // Verificação da senha (assumindo que é uma operação síncrona)
                 var resultado = passwordService.VerificarSenha(usuarioEncontrado, senha);
 
                 return resultado ? usuarioEncontrado : null;
             }
             catch (Exception ex)
             {
-                // Log do erro (opcional)
-                // _logger.LogError(ex, "Erro ao buscar cliente por email e senha");
                 return null;
             }
         }

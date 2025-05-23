@@ -11,6 +11,9 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers();
+
+
 builder.Services.AddSwaggerGen(options =>
 {
     options.EnableAnnotations();
@@ -29,6 +32,26 @@ builder.Services.AddSwaggerGen(c =>
         Title = "JWTToken_Auth_API",
         Version = "v1"
 
+    });
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Cabeçalho de autorização JWT usando o esquema Bearer. \r\n\r\n Insira 'Bearer' [espaço] e, em seguida, seu token na entrada de texto abaixo.\r\n\r\nExemplo: \"Bearer 1safsfsdfdfd\"",
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+        {
+            new OpenApiSecurityScheme {
+                Reference = new OpenApiReference {
+                    Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
     });
 });
 
@@ -52,6 +75,7 @@ builder.Services.AddCors(
             }
         );
     });
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -63,9 +87,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ValidIssuer = "ProjetoSenaiNotes",
             ValidAudience = "ProjetoAPISenaiNotes",
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("SenhaMaximaDoProjeto")),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("minha-chave-secreta-mega-ultra-segura-senai")),
         };
     });
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -79,6 +105,7 @@ app.UseSwaggerUI(c =>
 
 app.MapControllers();
 
-
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();

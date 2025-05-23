@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using APISenaiNotes.Models;
 using Swashbuckle.AspNetCore.Annotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace APISenaiNotes.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class NotaController : ControllerBase
@@ -18,6 +20,7 @@ namespace APISenaiNotes.Controllers
             _notaRepository = notaRepository;
         }
 
+        [SwaggerOperation(Summary = "Lista as notas.")]
         [HttpGet]
         public async Task<IActionResult> ListarNotas()
         {
@@ -26,7 +29,7 @@ namespace APISenaiNotes.Controllers
         }
 
         [HttpPost]
-        [SwaggerOperation(Summary = "Cadastrar uma nova nota")]
+        [SwaggerOperation(Summary = "Cadastra uma nova nota.")]
         public async Task<IActionResult> CadastrarNota(CadastrarNotaDto notaDto)
         {
             await _notaRepository.CadastrarNotaDto(notaDto);
@@ -34,6 +37,7 @@ namespace APISenaiNotes.Controllers
             return Created();
         }
 
+        [SwaggerOperation(Summary = "Edita a nota.")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Editar(int id, CadastrarNotaDto nota)
         {
@@ -48,6 +52,7 @@ namespace APISenaiNotes.Controllers
             }
         }
 
+        [SwaggerOperation(Summary = "Exclui a nota.")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Deletar(int id)
         {
@@ -62,6 +67,7 @@ namespace APISenaiNotes.Controllers
             }
         }
 
+        [SwaggerOperation(Summary = "Arquiva ou desarquiva a nota.")]
         [HttpPatch("{id}/arquivar")]
         public async Task<IActionResult> ArquivarNota(int id)
         {

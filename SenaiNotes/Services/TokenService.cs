@@ -19,8 +19,8 @@ namespace APISenaiNotes.Services
             var creds = new SigningCredentials(chave, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer: "senainotes",
-                audience: "senainotes",
+                issuer: "ProjetoSenaiNotes",
+                audience: "ProjetoAPISenaiNotes",
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(30),
                 signingCredentials: creds

@@ -1,9 +1,12 @@
 ﻿using APISenaiNotes.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using APISenaiNotes.Models;
+using Swashbuckle.AspNetCore.Annotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace APISenaiNotes.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TagController : ControllerBase
@@ -14,6 +17,7 @@ namespace APISenaiNotes.Controllers
             _tagRepository = tagRepository;
         }
 
+        [SwaggerOperation(Summary = "Lista as tags disponiveis.")]
         [HttpGet]
         public async Task<IActionResult> ListarTags()
         {
@@ -21,6 +25,7 @@ namespace APISenaiNotes.Controllers
             return Ok(tags);
         }
 
+        [SwaggerOperation(Summary = "Cadastra uma nova tag.")]
         [HttpPost]
         public async Task<IActionResult> CadastrarTag(Tag tag)
         {
@@ -28,6 +33,7 @@ namespace APISenaiNotes.Controllers
             return Created();
         }
 
+        [SwaggerOperation(Summary = "Edita a tag.")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Editar(int id, Tag tag)
         {
@@ -42,6 +48,7 @@ namespace APISenaiNotes.Controllers
             }
         }
 
+        [SwaggerOperation(Summary = "Exclui a tag.")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Deletar(int id)
         {
