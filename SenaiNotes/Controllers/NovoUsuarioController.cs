@@ -51,7 +51,7 @@ namespace APISenaiNotes.Controllers
 
             var token = tokenService.GenerateToken(usuario.Email);
 
-            var json = new { Token = token };
+            var json = new { token, usuario };
 
             return Ok(json);
         }
