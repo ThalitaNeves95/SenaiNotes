@@ -4,8 +4,6 @@ namespace APISenaiNotes.DTO
 {
     public class CadastrarNotaDto
     {
-        public int NotaId { get; set; }
-
         public int UsuarioId { get; set; }
 
         public string? Titulo { get; set; }
