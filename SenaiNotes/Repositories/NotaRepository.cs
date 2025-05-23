@@ -21,12 +21,16 @@ namespace APISenaiNotes.Repositories
 
         public async Task Atualizar(int id, CadastrarNotaDto nota)
         {
-            var NotaEncontrada = await _context.Notas.FindAsync(id);
+            var notaEncontrada = await _context.Notas.FindAsync(id);
 
-            if (NotaEncontrada == null)
+            if (notaEncontrada == null)
             {
-                throw new Exception();
+                throw new ArgumentNullException();
             }
+
+            notaEncontrada.Titulo = nota.Titulo;
+            notaEncontrada.Imagem = nota.Imagem;
+            notaEncontrada.Conteudo = nota.Conteudo;
 
             await _context.SaveChangesAsync();
         }
@@ -37,7 +41,6 @@ namespace APISenaiNotes.Repositories
                 .Where(n => n.Titulo.Contains(nota))
                 .Select(n => new CadastrarNotaDto
                 {
-                    UsuarioId = n.UsuarioId,
                     Titulo = n.Titulo,
                     Imagem = n.Imagem,
                     Conteudo = n.Conteudo,
@@ -81,7 +84,6 @@ namespace APISenaiNotes.Repositories
                 Arquivada = false,
                 DataCriacao = DateTime.Now,
                 DataAtualizacao = DateTime.Now,
-                UsuarioId = notaDto.UsuarioId,
                 Tags = tags
             };
 

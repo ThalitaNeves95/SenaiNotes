@@ -59,7 +59,7 @@ namespace APISenaiNotes.Controllers
                 await _notaRepository.Atualizar(id, nota);
                 return Ok(nota);
             }
-            catch (Exception ex)
+            catch (ArgumentNullException ex)
             {
                 return NotFound("Nota não encontrada!");
             }
