@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using APISenaiNotes.Models;
 using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.AspNetCore.Authorization;
+using APISenaiNotes.Validator;
 
 namespace APISenaiNotes.Controllers
 {
@@ -44,6 +45,7 @@ namespace APISenaiNotes.Controllers
         [HttpPost]
         [SwaggerOperation(Summary = "Cadastra uma nova nota.")]
         public async Task<IActionResult> CadastrarNota(CadastrarNotaDto notaDto)
+       
         {
             await _notaRepository.CadastrarNotaDto(notaDto);
 
@@ -87,5 +89,6 @@ namespace APISenaiNotes.Controllers
             await _notaRepository.ArquivarNota(id);
             return NoContent();
         }
+
     }
 }

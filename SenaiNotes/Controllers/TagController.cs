@@ -61,6 +61,7 @@ namespace APISenaiNotes.Controllers
             {
                 return BadRequest(ex.Message);
             }
+
         }
     }
 }
