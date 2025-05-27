@@ -35,6 +35,7 @@ namespace APISenaiNotes.Repositories
                 NomeUsuario = usuario.NomeUsuario,
                 Email = usuario.Email,
                 Senha = usuario.Senha,
+                DataCriacao = DateTime.Now,
             };
 
             novoUsuario.Senha = passwordService.HashPassword(novoUsuario);

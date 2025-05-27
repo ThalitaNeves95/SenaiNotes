@@ -49,6 +49,50 @@ namespace APISenaiNotes.Repositories
                 .ToListAsync();
         }
 
+        public async Task<CadastrarNotaSemImagemDto> CadastrarNotaSemImagemDto(CadastrarNotaSemImagemDto notaDto)
+        {
+            // 1 - Percorrer a Lista de Tags
+            // 1.1 - Essa Tag já existe?
+            //1.2 - Pegar o ID dela
+            // 1.3 - Se não existe, cadastrar a tag e pegar ID dela
+            List<Tag> tags = new List<Tag>();
+
+            foreach (var item in notaDto.Tags)
+            {
+                var tagEncontrada = await _tagRepository.BuscarPorNomeeUsuario(item);
+
+                if (tagEncontrada == null)
+                {
+                    tagEncontrada = new Tag
+                    {
+                        Nome = item,
+                    };
+                    _context.Tags.Add(tagEncontrada);
+                    _context.SaveChanges();
+                }
+
+                tags.Add(tagEncontrada);
+
+            }
+
+            var novaNota = new Nota
+            {
+                Titulo = notaDto.Titulo,
+                Imagem = notaDto.Imagem,
+                Conteudo = notaDto.Conteudo,
+                UsuarioId = notaDto.UsuarioId,
+                Arquivada = false,
+                DataCriacao = DateTime.Now,
+                DataAtualizacao = DateTime.Now,
+                Tags = tags
+            };
+
+            _context.Notas.Add(novaNota);
+            await _context.SaveChangesAsync();
+
+            return notaDto;
+        }
+
         public async Task<CadastrarNotaDto> CadastrarNotaDto(CadastrarNotaDto notaDto)
         {
             // 1 - Percorrer a Lista de Tags
@@ -67,13 +111,12 @@ namespace APISenaiNotes.Repositories
                     {
                         Nome = item,
                     };
-
+                    _context.Tags.Add(tagEncontrada);
+                    _context.SaveChanges();
                 }
 
                 tags.Add(tagEncontrada);
-
-                _context.Add(tagEncontrada);
-                _context.SaveChanges();
+                
             }
 
             var novaNota = new Nota
@@ -81,6 +124,7 @@ namespace APISenaiNotes.Repositories
                 Titulo = notaDto.Titulo,
                 Imagem = notaDto.Imagem,
                 Conteudo = notaDto.Conteudo,
+                UsuarioId = notaDto.UsuarioId,
                 Arquivada = false,
                 DataCriacao = DateTime.Now,
                 DataAtualizacao = DateTime.Now,
@@ -116,10 +160,11 @@ namespace APISenaiNotes.Repositories
                     Titulo = n.Titulo,
                     Imagem = n.Imagem,
                     Conteudo = n.Conteudo,
+                    UsuarioId = n.UsuarioId,
                     Arquivada = n.Arquivada,
                     DataCriacao = n.DataCriacao,
                     DataAtualizacao = n.DataAtualizacao,
-                    Tags = n.Tags.Select(t => new Tag
+                    Tags = n.Tags.Select(t => new ListarTagViewModel
                     {
                         TagId = t.TagId,
                         Nome = t.Nome

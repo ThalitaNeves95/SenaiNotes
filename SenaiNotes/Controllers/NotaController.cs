@@ -42,11 +42,42 @@ namespace APISenaiNotes.Controllers
             return Ok(nomeNota);
         }
 
+
+        [HttpPost]
+        [SwaggerOperation(Summary = "Cadastra uma nova nota.")]
+        public async Task<IActionResult> CadastrarNota(CadastrarNotaSemImagemDto notaDto)
+        {
+            await _notaRepository.CadastrarNotaSemImagemDto(notaDto);
+
+            return Created();
+        }
+
         [HttpPost]
         [SwaggerOperation(Summary = "Cadastra uma nova nota.")]
         public async Task<IActionResult> CadastrarNota(CadastrarNotaDto notaDto)
-       
         {
+            if (notaDto.ImagemAnotacao != null)
+            {
+                // EXTRA - Verificar se o arquivo é uma imagem
+                // 1 - Criar uma variavel que vai ser a pasta de destino
+                var pastaDestino = Path.Combine(Directory.GetCurrentDirectory(), "ImagensNotas");
+
+                // 2 - Salvar o arquivo
+                // EXTRA - Criar um nome personalizado para o arquivo
+                var nomeArquivo = notaDto.ImagemAnotacao.FileName;
+
+                var caminhoArquivo = Path.Combine(pastaDestino, nomeArquivo);
+
+                using (var stream = new FileStream(caminhoArquivo, FileMode.Create))
+                {
+                    notaDto.ImagemAnotacao.CopyTo(stream);
+                }
+
+                // 3 - Guardar o local do arquivo
+
+                notaDto.Imagem = caminhoArquivo;
+            }
+
             await _notaRepository.CadastrarNotaDto(notaDto);
 
             return Created();

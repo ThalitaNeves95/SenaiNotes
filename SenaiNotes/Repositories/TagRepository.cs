@@ -2,6 +2,7 @@
 using APISenaiNotes.Models;
 using Microsoft.EntityFrameworkCore;
 using APISenaiNotes.Context;
+using APISenaiNotes.ViewModels;
 
 namespace APISenaiNotes.Repositories
 {
@@ -13,9 +14,17 @@ namespace APISenaiNotes.Repositories
             _context = context;
         }
 
-        public async Task<List<Tag>> ListarTodos()
+        public async Task<List<ListarTagViewModel>> ListarTodos()
         {
-            return await _context.Tags.ToListAsync();
+            var tags = _context.Tags
+                 .Include(n => n.Nota)
+                 .Select(n => new ListarTagViewModel
+                 {
+                     TagId = n.TagId,
+                     Nome = n.Nome,
+                 });
+
+            return await tags.ToListAsync();
         }
 
         public async Task<Tag?> BuscarPorNomeeUsuario(string nome)

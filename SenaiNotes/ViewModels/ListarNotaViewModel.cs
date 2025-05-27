@@ -7,6 +7,8 @@ namespace APISenaiNotes.ViewModels
     {
         public int NotaId { get; set; }
 
+        public int UsuarioId { get; set; }
+
         public string? Titulo { get; set; }
 
         public string? Imagem { get; set; }
@@ -18,6 +20,6 @@ namespace APISenaiNotes.ViewModels
         public DateTime? DataCriacao { get; set; }
 
         public DateTime? DataAtualizacao { get; set; }
-        public virtual ICollection<Tag> Tags { get; set; } = new List<Tag>();
+        public virtual ICollection<ListarTagViewModel> Tags { get; set; } = new List<ListarTagViewModel>();
     }
 }

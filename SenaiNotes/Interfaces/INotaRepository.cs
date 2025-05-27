@@ -10,6 +10,9 @@ namespace APISenaiNotes.Interfaces
 
         Task <CadastrarNotaDto> CadastrarNotaDto(CadastrarNotaDto nota);
 
+        Task<CadastrarNotaDto> CadastrarNotaSemImagemDto(CadastrarNotaSemImagemDto notaDto);
+
+
         Task<List<CadastrarNotaDto>> BuscarNotaPorNomeAsync(string nota);
 
         Task Atualizar(int id, CadastrarNotaDto nota);

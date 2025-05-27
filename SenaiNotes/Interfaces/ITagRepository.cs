@@ -1,10 +1,11 @@
 ﻿using APISenaiNotes.Models;
+using APISenaiNotes.ViewModels;
 
 namespace APISenaiNotes.Interfaces
 {
     public interface ITagRepository
     {
-        Task<List<Tag>> ListarTodos();
+        Task<List<ListarTagViewModel>> ListarTodos();
 
         Task<Tag?> BuscarPorNomeeUsuario(string nome);
 
