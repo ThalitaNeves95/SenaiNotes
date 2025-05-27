@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using APISenaiNotes.Models;
 using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.AspNetCore.Authorization;
+using APISenaiNotes.Validator;
 
 namespace APISenaiNotes.Controllers
 {
@@ -29,6 +30,13 @@ namespace APISenaiNotes.Controllers
         [HttpPost]
         public async Task<IActionResult> CadastrarTag(Tag tag)
         {
+            var result = new TagValidator().Validate(tag);
+
+            if (!result.IsValid)
+            {
+                return BadRequest(result.Errors);
+            }
+
             await _tagRepository.Cadastrar(tag);
             return Created();
         }
