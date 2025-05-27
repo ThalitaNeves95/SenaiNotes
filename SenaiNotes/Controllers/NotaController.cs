@@ -43,9 +43,9 @@ namespace APISenaiNotes.Controllers
         }
 
 
-        [HttpPost]
-        [SwaggerOperation(Summary = "Cadastra uma nova nota.")]
-        public async Task<IActionResult> CadastrarNota(CadastrarNotaSemImagemDto notaDto)
+        [HttpPost("sem-imagem")]
+        [SwaggerOperation(Summary = "Cadastra uma nova nota sem imagem.")]
+        public async Task<IActionResult> CadastrarNotaSemImagem(CadastrarNotaSemImagemDto notaDto)
         {
             await _notaRepository.CadastrarNotaSemImagemDto(notaDto);
 
