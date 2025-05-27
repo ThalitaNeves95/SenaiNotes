@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SenaiNotes.Models;
+namespace APISenaiNotes.Models;
 
 public partial class Nota
 {
     public int NotaId { get; set; }
 
-    public int? UsuarioId { get; set; }
+    public int UsuarioId { get; set; }
 
-    public string? Titulo { get; set; }
+    public string Titulo { get; set; }
 
     public string? Imagem { get; set; }
 
