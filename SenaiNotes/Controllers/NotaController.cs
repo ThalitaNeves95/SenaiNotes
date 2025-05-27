@@ -44,8 +44,9 @@ namespace APISenaiNotes.Controllers
 
         [HttpPost]
         [SwaggerOperation(Summary = "Cadastra uma nova nota.")]
+        
+
         public async Task<IActionResult> CadastrarNota(CadastrarNotaDto notaDto)
-       
         {
             await _notaRepository.CadastrarNotaDto(notaDto);
 
