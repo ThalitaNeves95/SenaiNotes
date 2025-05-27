@@ -29,6 +29,7 @@ namespace APISenaiNotes.Controllers
             return Ok(notas);
         }
 
+        [SwaggerOperation(Summary = "Busca nota por nome.")]
         [HttpGet("buscar/{nota}")]
         public async Task<IActionResult> BuscarNotaPorNomeAsync(string nota)
         {
@@ -42,7 +43,6 @@ namespace APISenaiNotes.Controllers
             return Ok(nomeNota);
         }
 
-
         [HttpPost("sem-imagem")]
         [SwaggerOperation(Summary = "Cadastra uma nova nota sem imagem.")]
         public async Task<IActionResult> CadastrarNotaSemImagem(CadastrarNotaSemImagemDto notaDto)
@@ -54,8 +54,6 @@ namespace APISenaiNotes.Controllers
 
         [HttpPost]
         [SwaggerOperation(Summary = "Cadastra uma nova nota.")]
-        
-
         public async Task<IActionResult> CadastrarNota(CadastrarNotaDto notaDto)
         {
             if (notaDto.ImagemAnotacao != null)
